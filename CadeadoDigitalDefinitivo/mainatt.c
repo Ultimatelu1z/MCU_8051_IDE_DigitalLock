@@ -21,7 +21,6 @@ int teclado[4][4]={
 	{13, 14, 15, 16}};
 /* cada número representa um carcter do keypad 4x4 */
 
-
 int LerTeclado(void);
 void Display7Seg(void);
 /*Prototipos das funções*/
@@ -31,6 +30,7 @@ void main(void){
 
 
 	while(1){
+		
 		tecladoPress=LerTeclado();
 
         if(tecladoPress==13){
@@ -47,6 +47,7 @@ void main(void){
 
         /* Armazena os digitos da senha*/
         if(tecladoPress!=0){
+		
                 if(digito[0]==0){digito[0]=tecladoPress; tecladoPress=0;}
                 if(digito[0]!=0&&digito[1]==0){digito[1]=tecladoPress; tecladoPress=0;}
                 if(digito[1]!=0&&digito[2]==0){digito[2]=tecladoPress; tecladoPress=0;}
@@ -57,9 +58,9 @@ void main(void){
 			
 			P0_7=0;
 			digito[0]=0;
-            digito[1]=0;
-            digito[2]=0;
-            digito[3]=0;
+            		digito[1]=0;
+            		digito[2]=0;
+            		digito[3]=0;
 		}
 		else if(digitCont==4&&digito[0]!=senha[0] || digitCont==4&&digito[1]!=senha[1] || digitCont==4&&digito[2]!=senha[2] || digitCont==4&&digito[3]!=senha[3] ){
 
