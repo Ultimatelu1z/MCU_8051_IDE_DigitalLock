@@ -8,6 +8,7 @@
 #define COLUNA3 P1_6
 #define COLUNA4 P1_7
 
+int delay;
 int digitCont=0; /*conta quantos digitos foram inseridos*/
 int tentativa=0; /* Conta as tentativas*/
 volatile unsigned int tecladoPress=0; /* Recebe o valor do teclado */
@@ -34,10 +35,13 @@ void main(void){
 		tecladoPress=LerTeclado();
 
         if(tecladoPress==13){
-                if(digito[0]!=0&&digito[1]!=0&&digito[2]!=0){digito[3]=0; tecladoPress=0; digitCont--;}/* Apaga o digito 4 se * for acionado */
-                if(digito[0]!=0&&digito[1]!=0&&digito[3]==0){digito[2]=0; tecladoPress=0; digitCont--;}/* Apaga o digito 3 se * for acionado */
-                if(digito[0]!=0&&digito[2]==0&&digito[3]==0){digito[1]=0; tecladoPress=0; digitCont--;}/* Apaga o digito 2 se * for acionado */
-                if(digito[1]==0&&digito[2]==0&&digito[3]==0){digito[0]=0; tecladoPress=0; digitCont--;}/* Apaga o digito 1 se * for acionado */
+
+              digito[0]=0;
+              digito[1]=0;
+              digito[2]=0;
+              digito[3]=0;
+              tecladoPress=0;
+              digitCont=0;
         }
 		
 
@@ -56,11 +60,7 @@ void main(void){
 
 		if(digito[0]==senha[0]&&digito[1]==senha[1]&&digito[2]==senha[2]&&digito[3]==senha[3]){
 			
-			P0_7=0;
-			digito[0]=0;
-            		digito[1]=0;
-            		digito[2]=0;
-            		digito[3]=0;
+			tentativa=10;
 		}
 		else if(digitCont==4&&digito[0]!=senha[0] || digitCont==4&&digito[1]!=senha[1] || digitCont==4&&digito[2]!=senha[2] || digitCont==4&&digito[3]!=senha[3] ){
 
@@ -106,24 +106,50 @@ void Display7Seg(void){
 	}
 
 	if(tentativa==3){
-
-		P0=255;
-		P2=134;
-		P0_3=0;
-
-		P0=255;
-		P2=206;
-		P0_2=0;
-
-		P0=255;
-		P2=206;
-	        P0_1=0;
-
-		P0=255;
-		P2=192;
-		P0_0=0;
-		while(1);
+		while(1){
+			P0_6=0;
+			
+			P0=255;
+			P2=134;
+			P0_3=0;
+	
+			P0=255;
+			P2=206;
+			P0_2=0;
+	
+			P0=255;
+			P2=206;
+		        P0_1=0;
+	
+			P0=255;
+			P2=192;
+			P0_0=0;
+			for(delay=0;delay<20;delay++);
+		}
+		
 	}
+
+	if(tentativa==10){
+
+		while(1){
+			P0_7=0;
+
+			P0=255;
+			P2=192;
+			P0_2=0;
+
+			P0=255;
+			P2=137;
+			P0_1=0;
+			for(delay=0;delay<20;delay++);
+
+		}
+		
+
+
+	}
+
+	
 }
 int LerTeclado(void){
 
@@ -196,4 +222,3 @@ int LerTeclado(void){
 	P1=0x0F;
 	return retornaTecla;
 }
-
